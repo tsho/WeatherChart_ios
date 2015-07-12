@@ -10,6 +10,52 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    func jsonPost() {
+        //            let urlString = "http://0.0.0.0:3000/getweatherinfo"
+        let urlString = "http://lit-shelf-7885.herokuapp.com/getweatherinfo"
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        
+        // set the method(HTTP-POST)
+        request.HTTPMethod = "POST"
+        // set the header(s)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // set the request-body(JSON)
+        /*            var params: [String: AnyObject] = [
+        "foo": "bar",
+        "baz": [
+        "a": 1,
+        "b": 20,
+        "c": 300
+        ]
+        ] */
+        /*            var params: [String: AnyObject] = [
+        "company" : [
+        "area" : "Tokyo",
+        "password" : "lmn"
+        ]
+        ] */
+        var params: [String: AnyObject] = [
+            "area" : "Tokyo"
+        ]
+        
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+        
+        // use NSURLSessionDataTask
+        var task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {data, response, error in
+            if (error == nil) {
+                var result = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                println(result)
+            } else {
+                println(error)
+            }
+        })
+        task.resume()
+    }
+    
+
    
     @IBOutlet weak var myForecast: UILabel!
     
@@ -32,9 +78,11 @@ class ViewController: UIViewController {
             self.myForecast.textColor = UIColor.blueColor()
         }
 
+        
         self.myForecast.text = todayCondition
+
         
-        
+        jsonPost()
 
     }
   
