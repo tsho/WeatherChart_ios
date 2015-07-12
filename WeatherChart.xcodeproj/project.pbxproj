@@ -13,6 +13,8 @@
 		CA2101551B524956003F2BD8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2101541B524956003F2BD8 /* Images.xcassets */; };
 		CA2101581B524956003F2BD8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA2101561B524956003F2BD8 /* LaunchScreen.xib */; };
 		CA2101641B524956003F2BD8 /* WeatherChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2101631B524956003F2BD8 /* WeatherChartTests.swift */; };
+		CA21016E1B52A039003F2BD8 /* tokyo_St_mnl.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */; };
+		CA2101721B52A171003F2BD8 /* Niigata_St.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CA2101711B52A171003F2BD8 /* Niigata_St.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		CA21015D1B524956003F2BD8 /* WeatherChartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherChartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2101621B524956003F2BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA2101631B524956003F2BD8 /* WeatherChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherChartTests.swift; sourceTree = "<group>"; };
+		CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tokyo_St_mnl.gpx; sourceTree = "<group>"; };
+		CA2101711B52A171003F2BD8 /* Niigata_St.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Niigata_St.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 				CA21014A1B524956003F2BD8 /* WeatherChart */,
 				CA2101601B524956003F2BD8 /* WeatherChartTests */,
 				CA2101491B524956003F2BD8 /* Products */,
+				CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */,
+				CA2101711B52A171003F2BD8 /* Niigata_St.gpx */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,7 +200,9 @@
 			files = (
 				CA2101531B524956003F2BD8 /* Main.storyboard in Resources */,
 				CA2101581B524956003F2BD8 /* LaunchScreen.xib in Resources */,
+				CA2101721B52A171003F2BD8 /* Niigata_St.gpx in Resources */,
 				CA2101551B524956003F2BD8 /* Images.xcassets in Resources */,
+				CA21016E1B52A039003F2BD8 /* tokyo_St_mnl.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +417,7 @@
 				CA2101691B524956003F2BD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CA21016A1B524956003F2BD8 /* Build configuration list for PBXNativeTarget "WeatherChartTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +426,7 @@
 				CA21016C1B524956003F2BD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
