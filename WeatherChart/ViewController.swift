@@ -9,195 +9,97 @@
 import UIKit
 import CoreLocation
 
-//class ViewController: UIViewController {
-class ViewController: UIViewController , CLLocationManagerDelegate{
+class ViewController: UIViewController , CLLocationManagerDelegate, NSURLSessionDelegate, NSURLSessionDataDelegate{
         
     
     var myLocationManager:CLLocationManager!
     
-    // 緯度表示用のラベル.
     var myLatitudeLabel:UILabel!
-    
-    // 経度表示用のラベル.
     var myLongitudeLabel:UILabel!
     
-
-    var country:String!
-    var area:String!
-
-    func getData() {
-        let getPrfURL = NSURL(string: "http://express.heartrails.com/api/json?method=getPrefectures")
-        let req = NSURLRequest(URL: getPrfURL!)
-        let connection: NSURLConnection = NSURLConnection(request: req, delegate: self, startImmediately: false)!
-        
-        // NSURLConnectionを使ってAPIを取得する
-        NSURLConnection.sendAsynchronousRequest(req,
-            queue: NSOperationQueue.mainQueue(),
-            completionHandler: response)
-    }
-    
-    // 取得したAPIデータの処理
-    func response(res: NSURLResponse!, data: NSData!, error: NSError!){
-        
-        let json:NSDictionary = NSJSONSerialization.JSONObjectWithData(data,
-            options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-        
-        let res:NSDictionary = json.objectForKey("response") as! NSDictionary
-        let pref:NSArray = res.objectForKey("prefecture") as! NSArray
-        
-/*        for var i=0 ; i<pref.count ; i++ {
-            println(pref[i])
-        } */
-    }
-    
-
-
-    func revGeocoding(coordinate: CLLocationCoordinate2D)
-    {
-        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        var geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks:[AnyObject]!, error:NSError!) -> Void in
-            if (error == nil && placemarks.count > 0) {
-                let placemark = placemarks[0] as! CLPlacemark
-                println("Country = \(placemark.country)")
-                println("Administrative Area = \(placemark.administrativeArea)")
-                self.country = placemark.country
-                self.area = placemark.administrativeArea
-            } else if (error == nil && placemarks.count == 0) {
-                println("No results were returned.")
-            } else if (error != nil) {
-                println("An error occured = \(error.localizedDescription)")
-            }
-        })
-
-        println(coordinate.latitude)
-        println(coordinate.longitude)
-//        println(country)
-        
-//        jsonPost
-
-    }
-    
-
-/*    func getPosition () {
-        var myLocationManager:CLLocationManager!
-
-        // 現在地の取得.
-        myLocationManager = CLLocationManager()
-        
-//        myLocationManager.delegate = self
-    
-        // セキュリティ認証のステータスを取得.
-        let status = CLLocationManager.authorizationStatus()
-    
-        // まだ認証が得られていない場合は、認証ダイアログを表示.
-        if(status == CLAuthorizationStatus.NotDetermined) {
-        println("didChangeAuthorizationStatus:\(status)");
-        // まだ承認が得られていない場合は、認証ダイアログを表示.
-        self.myLocationManager.requestAlwaysAuthorization()
-        }
-        
-        // 取得精度の設定.
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        // 取得頻度の設定.
-        myLocationManager.distanceFilter = 100
-        
-//s        self.view.addSubview(myButton)
-    
-    } */
+    var country: String!
+    var area: String!
+//    var prediction: String! = "unknown"
 
     @IBOutlet weak var myForecast: UILabel!
     
-    @IBAction func getForecastData(sender: AnyObject) {
+    var _type: String = ""
 
-       
-        getData()
-//        println(coordinate.latitude)
-//        revGeocoding()
-//        getPaosition()
-        
-        // 緯度表示用のラベル.
-        var myLatitudeLabel:UILabel!
-        
-        // 経度表示用のラベル.
-        var myLongitudeLabel:UILabel!
-        
-        
-        let conditions = [
-            "晴れ",
-            "曇り",
-            "雨"
-        ]
-        
-        let todayCondition = conditions[2]
-        
-        if todayCondition == "晴れ" {
-            self.myForecast.textColor = UIColor.redColor()
-        } else if todayCondition == "曇り" {
-            self.myForecast.textColor = UIColor.grayColor()
-        } else if todayCondition == "雨" {
-            self.myForecast.textColor = UIColor.blueColor()
-        }
+    @IBAction func mySurfChart(sender : UIButton) {
+        println(__FUNCTION__, __LINE__)
+        _type = "surf"
+        performSegueWithIdentifier("segue", sender: nil)
+    
+    }
 
-        
-        self.myForecast.text = todayCondition
-        
-        jsonPost()
+    @IBAction func my500hpa(sender: UIButton) {
+        _type = "500hpa"
+        performSegueWithIdentifier("segue", sender: nil)
+    }
 
+    @IBAction func myEnsemble(sender: UIButton) {
+        _type = "ensemble"
+        performSegueWithIdentifier("segue", sender: nil)
     }
     
-    func jsonPost() {
-        let urlString = "http://0.0.0.0:3000/getweatherinfo"
-//        let urlString = "http://lit-shelf-7885.herokuapp.com/getweatherinfo"
-        
-        var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-        
-        // set the method(HTTP-POST)
-        request.HTTPMethod = "POST"
-        // set the header(s)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        var params: [String: AnyObject] = [
-            "country": country, "area" : area
-        ]
-        
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        
-        // use NSURLSessionDataTask
-        var task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {data, response, error in
-            if (error == nil) {
-                var result = NSString(data: data, encoding: NSUTF8StringEncoding)!
-                println(result)
-            } else {
-                println(error)
-            }
-        })
-        task.resume()
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "segue") {
+            var chartView: ChartViewController = segue.destinationViewController as! ChartViewController
+            chartView._type = _type
+        }
     }
+    
+    @IBAction func getForecastData(sender: AnyObject) {
+        var todayCondition:NSString = "tets"
+        var prediction:NSString = "unknown"
 
+        myLocationManager.startUpdatingLocation()
+
+        getData()
+       
+        jsonPost( {prediction in
+
+            println(" in JsonPOST")
+            println("self.prediction = \(prediction)")
+            todayCondition = prediction as! NSString //["prediction"]
+
+           
+            if todayCondition == "Clear" as! NSString {
+                self.myForecast.textColor = UIColor.redColor()
+                self.myForecast.text = "晴れ"
+            } else if todayCondition == "Cloud" {
+                self.myForecast.textColor = UIColor.grayColor()
+                self.myForecast.text = "曇り"
+            } else if todayCondition == "Rain" {
+                self.myForecast.textColor = UIColor.blueColor()
+                self.myForecast.text = "雨"
+            }
+            println("text = \(self.myForecast.text)")
+            println(" be out JsonPOST")
+
+        })
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // ボタンの生成.
-        let myButton = UIButton(frame: CGRect(x: 0, y: -10, width: 100, height: 100))
-        myButton.backgroundColor = UIColor.orangeColor()
-        myButton.layer.masksToBounds = true
-        myButton.setTitle("Get", forState: .Normal)
-        myButton.layer.cornerRadius = 50.0
-        myButton.layer.position = CGPoint(x: self.view.bounds.width/2, y:self.view.bounds.height/2)
-        myButton.addTarget(self, action: "onClickMyButton:", forControlEvents: .TouchUpInside)
+//        let myButton = UIButton(frame: CGRect(x: 0, y: -10, width: 100, height: 100))
+//        myButton.backgroundColor = UIColor.orangeColor()
+//        myButton.layer.masksToBounds = true
+//        myButton.setTitle("Get", forState: .Normal)
+//        myButton.layer.cornerRadius = 50.0
+//        myButton.layer.position = CGPoint(x: self.view.bounds.width/2, y:self.view.bounds.height/2)
+//        myButton.addTarget(self, action: "onClickMyButton:", forControlEvents: .TouchUpInside)
         
-        // 緯度表示用のラベルを生成.
         myLatitudeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 30))
         myLatitudeLabel.layer.position = CGPoint(x: self.view.bounds.width/2, y:self.view.bounds.height/2+100)
         
-        // 軽度表示用のラベルを生成.
         myLongitudeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 30))
         myLongitudeLabel.layer.position = CGPoint(x: self.view.bounds.width/2, y:self.view.bounds.height/2+130)
         
-        
-        // 現在地の取得.
         myLocationManager = CLLocationManager()
         
         myLocationManager.delegate = self
@@ -205,19 +107,15 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         // セキュリティ認証のステータスを取得.
         let status = CLLocationManager.authorizationStatus()
         
-        // まだ認証が得られていない場合は、認証ダイアログを表示.
         if(status == CLAuthorizationStatus.NotDetermined) {
             println("didChangeAuthorizationStatus:\(status)");
-            // まだ承認が得られていない場合は、認証ダイアログを表示.
             self.myLocationManager.requestAlwaysAuthorization()
         }
         
-        // 取得精度の設定.
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        // 取得頻度の設定.
         myLocationManager.distanceFilter = 100
         
-        self.view.addSubview(myButton)
+//        self.view.addSubview(myButton)
         
     }
 
@@ -225,8 +123,67 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func jsonPost(callback: (String) -> Void) -> Void  {
+//    func jsonPost(success:() -> Void) {
+        let urlString = "http://0.0.0.0:3000/getweatherinfo"
+        //        let urlString = "http://lit-shelf-7885.herokuapp.com/getweatherinfo"
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if (country == nil) {
+            country = "Failed"
+            println("country is nill")
+            return
+        }
+        var params: [String: AnyObject] = [
+            "country": country, "area" : area
+        ]
+        
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+        
+        var task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(data, response, error) -> Void in
+        
+            if (error == nil) {
+                var result = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                var json:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
 
+                println(result)
+//                var test: NSString = result.objectForKey("prediction") as NSString
+                var test = json["prediction"] as? String
+                
+                println("test is \(test)")
+//                var json:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+//                var json:Array = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadeingOptions.AllowFragments, error: nil) as! Array
+                
+                println(result)
+//                let test:NSString = json["prediction"]
+//                var prediction = json["prediction"] as String
+//                callback(prediction)
+//                self.prediction = json["prediction"] as! String
+//                self.prediction = json["prediction"] as! String //?.description
+//                callback("\(json[prediction])")
+                callback(test!)
 
+            } else {
+                println(error)
+            }
+           
+        })
+        
+        task.resume()
+//        close()
+//        let party: [String: String] = ["ルフィ": "船長", "ゾロ": "剣士", "ナミ":"航海士"]
+//        return party
+//        return json["prediction"]
+    }
+   
+    
+    
+    
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         println("didChangeAuthorizationStatus");
@@ -251,8 +208,6 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     
     // ボタンイベントのセット.
     func onClickMyButton(sender: UIButton){
-        // 現在位置の取得を開始.
-        myLocationManager.startUpdatingLocation()
     }
     
     // 位置情報取得に成功したときに呼び出されるデリゲート.
@@ -275,6 +230,59 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         print("error")
+    }
+    
+    func getData() {
+        let getPrfURL = NSURL(string: "http://express.heartrails.com/api/json?method=getPrefectures")
+        let req = NSURLRequest(URL: getPrfURL!)
+        let connection: NSURLConnection = NSURLConnection(request: req, delegate: self, startImmediately: false)!
+        
+        // NSURLConnectionを使ってAPIを取得する
+        NSURLConnection.sendAsynchronousRequest(req,
+            queue: NSOperationQueue.mainQueue(),
+            completionHandler: response)
+    }
+    
+    // 取得したAPIデータの処理
+    func response(res: NSURLResponse!, data: NSData!, error: NSError!){
+        
+        let json:NSDictionary = NSJSONSerialization.JSONObjectWithData(data,
+            options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+        
+        let res:NSDictionary = json.objectForKey("response") as! NSDictionary
+        let pref:NSArray = res.objectForKey("prefecture") as! NSArray
+        
+        /*        for var i=0 ; i<pref.count ; i++ {
+        println(pref[i])
+        } */
+    }
+    
+    
+    
+    func revGeocoding(coordinate: CLLocationCoordinate2D)
+    {
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        var geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks:[AnyObject]!, error:NSError!) -> Void in
+            if (error == nil && placemarks.count > 0) {
+                let placemark = placemarks[0] as! CLPlacemark
+                println("Country = \(placemark.country)")
+                println("Administrative Area = \(placemark.administrativeArea)")
+                self.country = placemark.country
+                self.area = placemark.administrativeArea
+            } else if (error == nil && placemarks.count == 0) {
+                println("No results were returned.")
+            } else if (error != nil) {
+                println("An error occured = \(error.localizedDescription)")
+            }
+        })
+        
+        println(coordinate.latitude)
+        println(coordinate.longitude)
+        //        println(country)
+        
+        //        jsonPost
+        
     }
     
 

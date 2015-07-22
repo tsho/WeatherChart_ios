@@ -21,18 +21,27 @@
                                 <state key="normal" title="地上天気図">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="mySurfChart:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GAt-8v-Ae6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cM-qz-Bnk">
                                 <rect key="frame" x="232" y="445" width="136" height="30"/>
                                 <state key="normal" title="500 hPa 高層天気図">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="my500hpa:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="VXp-Hc-I2B"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWc-Ce-6sj">
                                 <rect key="frame" x="240" y="495" width="120" height="30"/>
                                 <state key="normal" title="アンサンブル予報">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="myEnsemble:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1KX-XK-vXk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUj-Sb-3ip">
                                 <rect key="frame" x="165" y="285" width="270" height="30"/>
@@ -43,8 +52,14 @@
                                     <action selector="getForecastData:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8Gl-D6-vRf"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2W-UN-WoU">
-                                <rect key="frame" x="263.5" y="161.5" width="72" height="52.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="???" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2W-UN-WoU">
+                                <rect key="frame" x="263" y="161" width="72" height="52.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="今日の???は" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsG-Jx-dZz">
+                                <rect key="frame" x="176" y="0.0" width="248" height="52.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,6 +69,7 @@
                         <constraints>
                             <constraint firstItem="QC7-c9-xNl" firstAttribute="top" secondItem="gUj-Sb-3ip" secondAttribute="bottom" constant="100" id="1hc-fq-uDs"/>
                             <constraint firstAttribute="centerX" secondItem="6cM-qz-Bnk" secondAttribute="centerX" id="8Gr-qt-lAy"/>
+                            <constraint firstAttribute="centerX" secondItem="KsG-Jx-dZz" secondAttribute="centerX" id="9XZ-FI-pXQ"/>
                             <constraint firstAttribute="centerX" secondItem="gUj-Sb-3ip" secondAttribute="centerX" id="AWj-F2-NeP"/>
                             <constraint firstAttribute="centerY" secondItem="gUj-Sb-3ip" secondAttribute="centerY" id="CbA-0T-IUv"/>
                             <constraint firstAttribute="centerY" secondItem="gUj-Sb-3ip" secondAttribute="centerY" id="Cxf-D8-EWL"/>
@@ -76,13 +92,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="QqQ-uH-c6r"/>
                                 <exclude reference="AWj-F2-NeP"/>
                                 <exclude reference="Cxf-D8-EWL"/>
                                 <exclude reference="FnI-O2-MLn"/>
                                 <exclude reference="Sya-e5-I5J"/>
                                 <exclude reference="lc9-0n-OLG"/>
                                 <exclude reference="rEd-VT-YJi"/>
-                                <exclude reference="QqQ-uH-c6r"/>
                                 <exclude reference="1hc-fq-uDs"/>
                                 <exclude reference="gNI-93-wxo"/>
                                 <exclude reference="jdn-Te-Ajp"/>
@@ -93,44 +109,28 @@
                     <navigationItem key="navigationItem" id="pGA-pV-ukz"/>
                     <connections>
                         <outlet property="myForecast" destination="c2W-UN-WoU" id="c4e-ta-ghi"/>
+                        <segue destination="EOs-JY-Tax" kind="show" identifier="segue" id="NBN-u9-WDJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="866" y="394"/>
         </scene>
-        <!--View Controller-->
+        <!--Chart View Controller-->
         <scene sceneID="Q1Y-Jy-ChG">
             <objects>
-                <viewController id="EOs-JY-Tax" sceneMemberID="viewController">
+                <viewController id="EOs-JY-Tax" customClass="ChartViewController" customModule="WeatherChart" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BnY-rc-0PP"/>
                         <viewControllerLayoutGuide type="bottom" id="5VQ-5W-tXB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RV8-nQ-3AJ">
+                    <view key="view" contentMode="scaleToFill" id="RV8-nQ-3AJ" customClass="Chart">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRy-e0-BcK">
-                                <rect key="frame" x="275.5" y="284" width="49" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="LR8-X2-MNV" kind="unwind" unwindAction="unwindToTop:" id="WBM-ZE-8KC"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="NRy-e0-BcK" secondAttribute="centerX" id="ZJr-kP-50u"/>
-                            <constraint firstAttribute="centerY" secondItem="NRy-e0-BcK" secondAttribute="centerY" id="dfD-aW-7LB"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LpJ-je-Mv7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="LR8-X2-MNV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1648" y="429"/>
         </scene>

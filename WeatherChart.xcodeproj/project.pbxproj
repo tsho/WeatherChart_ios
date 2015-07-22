@@ -15,6 +15,9 @@
 		CA2101641B524956003F2BD8 /* WeatherChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2101631B524956003F2BD8 /* WeatherChartTests.swift */; };
 		CA21016E1B52A039003F2BD8 /* tokyo_St_mnl.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */; };
 		CA2101721B52A171003F2BD8 /* Niigata_St.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CA2101711B52A171003F2BD8 /* Niigata_St.gpx */; };
+		CA2101741B52BE37003F2BD8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2101731B52BE37003F2BD8 /* ChartViewController.swift */; };
+		CA2101761B52D313003F2BD8 /* Kyoto_St.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CA2101751B52D313003F2BD8 /* Kyoto_St.gpx */; };
+		CAD9143F1B5F511300538286 /* Sapporp_to_Hakodate.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CAD9143E1B5F511300538286 /* Sapporp_to_Hakodate.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		CA2101631B524956003F2BD8 /* WeatherChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherChartTests.swift; sourceTree = "<group>"; };
 		CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tokyo_St_mnl.gpx; sourceTree = "<group>"; };
 		CA2101711B52A171003F2BD8 /* Niigata_St.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Niigata_St.gpx; sourceTree = "<group>"; };
+		CA2101731B52BE37003F2BD8 /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		CA2101751B52D313003F2BD8 /* Kyoto_St.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Kyoto_St.gpx; sourceTree = "<group>"; };
+		CAD9143E1B5F511300538286 /* Sapporp_to_Hakodate.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sapporp_to_Hakodate.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,8 @@
 				CA2101491B524956003F2BD8 /* Products */,
 				CA21016D1B52A039003F2BD8 /* tokyo_St_mnl.gpx */,
 				CA2101711B52A171003F2BD8 /* Niigata_St.gpx */,
+				CA2101751B52D313003F2BD8 /* Kyoto_St.gpx */,
+				CAD9143E1B5F511300538286 /* Sapporp_to_Hakodate.gpx */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +93,7 @@
 			children = (
 				CA21014D1B524956003F2BD8 /* AppDelegate.swift */,
 				CA21014F1B524956003F2BD8 /* ViewController.swift */,
+				CA2101731B52BE37003F2BD8 /* ChartViewController.swift */,
 				CA2101511B524956003F2BD8 /* Main.storyboard */,
 				CA2101541B524956003F2BD8 /* Images.xcassets */,
 				CA2101561B524956003F2BD8 /* LaunchScreen.xib */,
@@ -199,6 +208,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2101531B524956003F2BD8 /* Main.storyboard in Resources */,
+				CAD9143F1B5F511300538286 /* Sapporp_to_Hakodate.gpx in Resources */,
+				CA2101761B52D313003F2BD8 /* Kyoto_St.gpx in Resources */,
 				CA2101581B524956003F2BD8 /* LaunchScreen.xib in Resources */,
 				CA2101721B52A171003F2BD8 /* Niigata_St.gpx in Resources */,
 				CA2101551B524956003F2BD8 /* Images.xcassets in Resources */,
@@ -222,6 +233,7 @@
 			files = (
 				CA2101501B524956003F2BD8 /* ViewController.swift in Sources */,
 				CA21014E1B524956003F2BD8 /* AppDelegate.swift in Sources */,
+				CA2101741B52BE37003F2BD8 /* ChartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
