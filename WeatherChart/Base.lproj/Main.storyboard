@@ -44,30 +44,40 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUj-Sb-3ip">
-                                <rect key="frame" x="165" y="285" width="270" height="30"/>
-                                <state key="normal" title="現在地情報を調べ、天気予報情報を取得">
+                                <rect key="frame" x="232" y="285" width="135" height="30"/>
+                                <state key="normal" title="現在地情報を調べる">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="getForecastData:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8Gl-D6-vRf"/>
+                                    <action selector="getLocationData:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MUe-LW-frE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="???" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2W-UN-WoU">
-                                <rect key="frame" x="263" y="161" width="72" height="52.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="???" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2W-UN-WoU">
+                                <rect key="frame" x="264" y="162" width="72" height="52.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="今日の???は" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsG-Jx-dZz">
-                                <rect key="frame" x="176" y="0.0" width="248" height="52.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="????" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsG-Jx-dZz">
+                                <rect key="frame" x="274" y="113" width="52.5" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXR-qq-028">
+                                <rect key="frame" x="217.5" y="336" width="165" height="30"/>
+                                <state key="normal" title="天気予報情報を取得する">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getWeatherInfo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MVg-tI-qE9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QC7-c9-xNl" firstAttribute="top" secondItem="gUj-Sb-3ip" secondAttribute="bottom" constant="100" id="1hc-fq-uDs"/>
+                            <constraint firstAttribute="centerX" secondItem="pXR-qq-028" secondAttribute="centerX" id="49F-QB-sDL"/>
                             <constraint firstAttribute="centerX" secondItem="6cM-qz-Bnk" secondAttribute="centerX" id="8Gr-qt-lAy"/>
                             <constraint firstAttribute="centerX" secondItem="KsG-Jx-dZz" secondAttribute="centerX" id="9XZ-FI-pXQ"/>
                             <constraint firstAttribute="centerX" secondItem="gUj-Sb-3ip" secondAttribute="centerX" id="AWj-F2-NeP"/>
@@ -76,6 +86,8 @@
                             <constraint firstAttribute="centerX" secondItem="c2W-UN-WoU" secondAttribute="centerX" id="FiS-tR-Vu9"/>
                             <constraint firstItem="gUj-Sb-3ip" firstAttribute="top" secondItem="c2W-UN-WoU" secondAttribute="bottom" constant="70" id="FnI-O2-MLn"/>
                             <constraint firstAttribute="centerX" secondItem="KWc-Ce-6sj" secondAttribute="centerX" id="HGZ-Uz-kbG"/>
+                            <constraint firstItem="c2W-UN-WoU" firstAttribute="top" secondItem="KsG-Jx-dZz" secondAttribute="bottom" constant="20" id="Jd6-a7-Are"/>
+                            <constraint firstItem="pXR-qq-028" firstAttribute="top" secondItem="gUj-Sb-3ip" secondAttribute="bottom" constant="21" id="KXA-c1-iha"/>
                             <constraint firstAttribute="centerX" secondItem="QC7-c9-xNl" secondAttribute="centerX" id="OxT-Wr-Q9w"/>
                             <constraint firstItem="6cM-qz-Bnk" firstAttribute="top" secondItem="QC7-c9-xNl" secondAttribute="bottom" constant="30" id="QM0-1m-CMv"/>
                             <constraint firstItem="c2W-UN-WoU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="140" id="QqQ-uH-c6r"/>
@@ -108,13 +120,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="pGA-pV-ukz"/>
                     <connections>
+                        <outlet property="myBtnGetWeather" destination="pXR-qq-028" id="VJx-WL-USA"/>
                         <outlet property="myForecast" destination="c2W-UN-WoU" id="c4e-ta-ghi"/>
+                        <outlet property="myForecastArea" destination="KsG-Jx-dZz" id="Jo8-e0-xEu"/>
                         <segue destination="EOs-JY-Tax" kind="show" identifier="segue" id="NBN-u9-WDJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="866" y="394"/>
+            <point key="canvasLocation" x="846" y="361"/>
         </scene>
         <!--Chart View Controller-->
         <scene sceneID="Q1Y-Jy-ChG">
